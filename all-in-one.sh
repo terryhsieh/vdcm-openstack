@@ -7,7 +7,7 @@ echo "mysql-server-5.1 mysql-server/root_password password $MYSQL_ROOT_PASS" > /
 echo "mysql-server-5.1 mysql-server/root_password_again password $MYSQL_ROOT_PASS" >> /tmp/mysql.preseed
 cat /tmp/mysql.preseed | debconf-set-selections
 
-#rm /tmp/mysql.preseed
+rm /tmp/mysql.preseed
 
 apt-get install -y --force-yes python-software-properties
 #apt-add-repository -y ppa:managedit/openstack
@@ -25,15 +25,15 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASS
 sleep 2
 
 ./keystone.sh
-sleep 15
+sleep 10
 
 ./glance.sh
-sleep 15
+sleep 10
 
 ./nova-controller.sh
-sleep 15
+sleep 10
 
 ./nova-compute.sh
-sleep 15
+sleep 10
 
 ./dashboard.sh
