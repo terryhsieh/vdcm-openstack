@@ -31,4 +31,3 @@ service nova-api restart
 service nova-network restart
 service nova-compute restart
 
-echo "*** MANUALLY RESTART ALL NOVA SERVICES ***"
