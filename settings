@@ -1,0 +1,40 @@
+HOST_IP="TPE1AA0106"
+MYSQL_HOST="TPE1AA0106"
+ADMIN_PASSWORD="delta"
+MYSQL_ROOT_PASS="deltacloud"
+MYSQL_NOVA_PASS="deltacloud"
+MYSQL_GLANCE_PASS="deltacloud"
+MYSQL_KEYSTONE_PASS="deltacloud"
+MYSQL_HORIZON_PASS="deltacloud"
+SERVICE_TOKEN="111222333444555666"
+NETWORK_TYPE="nova.network.manager.VlanManager"
+PUBLIC_INTERFACE="eth0"
+VLAN_INTERFACE="eth1"
+FIXED_RANGE_NET="172.16.0.0"
+FIXED_RANGE_BITS="12"
+FIXED_RANGE_MASK="255.240.0.0"
+FIXED_RANGE_NETWORK_SIZE="256"
+FIXED_RANGE_NETWORK_COUNT="16"
+FLOATING_RANGE="192.168.11.128/25"
+REGION="nova"
+
+LIBVIRT_TYPE=${LIBVIRT_TYPE:-kvm}
+
+if [[ "$LIBVIRT_TYPE" == "kvm" ]]; then
+    modprobe kvm || true
+    if [ ! -e /dev/kvm ]; then
+	LIBVIRT_TYPE=qemu
+    fi
+fi
+	
+FIXED_RANGE="${FIXED_RANGE_NET}/${FIXED_RANGE_BITS}"
+export NOVA_PROJECT_ID="admin"
+export NOVA_USERNAME="admin"
+export NOVA_API_KEY=$ADMIN_PASSWORD
+export NOVA_URL="http://$HOST_IP:5000/v2.0/"
+export NOVA_VERSION=1.1
+export NOVA_REGION_NAME=$REGION
+
+DIR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+mv /etc/apt/sources.list /etc/apt/sources.list.ori
+echo 'deb file:'$DIR_PATH'/debs ./' > /etc/apt/sources.list
