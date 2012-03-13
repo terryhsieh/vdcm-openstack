@@ -3,7 +3,7 @@ keystone_data.sh
 keystone.log
 oneiric*
 lucid*
-ttylinux*
+#ttylinux*
 settings.local
 README.files
 glance-api.conf
