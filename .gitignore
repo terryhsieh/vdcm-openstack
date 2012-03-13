@@ -13,4 +13,3 @@ local_settings.py
 nova.conf
 kernels/
 loader*
-debs/
